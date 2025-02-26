@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import newsLogo from "../../../public/newslogo.jpg"
+import SearchInput from "./SearchInput";
 
 export default function Header() {
     return (
@@ -10,7 +11,7 @@ export default function Header() {
                     <Image src={newsLogo} alt="News Logo" width={150} height={150} />
                 </div>
             </Link>
-
+            <SearchInput />
         </div>
     )
 }
