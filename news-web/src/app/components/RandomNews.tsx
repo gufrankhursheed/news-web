@@ -1,13 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Article from "./Article";
-import { fetchCategoryNews, fetchTopHeadlines } from "../api/news/route";
 import Spinner from "./Spinner";
-
-interface TopHeadlineProps {
-    category: string;
-}
+import { searchNews } from "../api/news/route";
+import RandomArticle from "./RandonArticle";
 
 interface Source {
     id: string;
@@ -25,38 +21,39 @@ interface Article {
     content: string
 }
 
-export default function TopHeadline({ category }: TopHeadlineProps) {
-    const [articles, setArticles] = useState<Article[]>([]);
+export default function RandomNews() {
+    const [randomArticles, setRandomArticles] = useState<Article[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const loadNews = async () => {
             try {
-                const data = category === "general" ? await fetchTopHeadlines() : await fetchCategoryNews(category)
-                setArticles(data.articles)
+                const data = await searchNews("random news")
+                setRandomArticles(data.articles)
             } catch (error) {
-                console.log("News Fetch Error:", error);
+                console.log("Random News Fetch Error:", error);
             } finally {
                 setLoading(false);
             }
         }
 
         loadNews();
-    }, [category])
+    }, [])
 
     if (loading) {
         return (
-            <div className='flex items-center justify-center w-[700px]'>
+            <div className='flex items-center justify-center w-[450px]'>
                 <Spinner />
             </div>
         );
     }
 
     return (
-        <div className="w-[750px] mx-2">
-            {articles.map((article, index) => (
+        <div className='mt-4 w-[450px] border-l border-gray-300 mr-5'>
+            <h1 className="pl-2 text-2xl font-fold underline">Random News</h1>
+            {randomArticles.map((article, index) => (
                 <div key={index}>
-                    <Article data={article} />
+                    <RandomArticle data={article} />
                 </div>
             ))}
         </div>

@@ -12,6 +12,6 @@ export const fetchCategoryNews = async (category: string) => {
 }
 
 export const searchNews = async (query: string) => {
-    const res = await fetch(`${BASE_URL}/everything?q=${query}&apiKey=${API_KEY}`);
+    const res = await fetch(`${BASE_URL}/everything?q=${query}&apiKey=${API_KEY}&pageSize=20`);
     return res.json();
 }
