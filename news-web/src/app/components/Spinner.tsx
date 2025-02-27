@@ -1,7 +1,9 @@
 import { FadeLoader } from "react-spinners";
 
 export default function Spinner(){
-    return <>
-    <FadeLoader />
-    </>
+    return (
+        <div role="status">
+             <FadeLoader />
+        </div>
+    )
 }

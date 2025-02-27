@@ -33,9 +33,10 @@ export default function TopHeadline({ category }: TopHeadlineProps) {
         const loadNews = async () => {
             try {
                 const data = category === "general" ? await fetchTopHeadlines() : await fetchCategoryNews(category)
-                setArticles(data.articles)
+                setArticles(data.articles ?? [])
             } catch (error) {
                 console.log("News Fetch Error:", error);
+                setArticles([])
             } finally {
                 setLoading(false);
             }

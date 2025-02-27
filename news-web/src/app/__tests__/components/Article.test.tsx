@@ -30,10 +30,10 @@ describe("Article Component", () => {
     });
 
     it("renders correctly when `author` is missing", () => {
-        const articleWithoutAuthor = { ...mockArticle, author: "" }; // ✅ Simulate missing author
+        const articleWithoutAuthor = { ...mockArticle, author: "" }; 
         render(<Article data={articleWithoutAuthor} />);
     
-        expect(screen.queryByText("John Doe")).not.toBeInTheDocument(); // ✅ Ensure author is NOT rendered
+        expect(screen.queryByText("John Doe")).not.toBeInTheDocument(); 
     });
 });
 
