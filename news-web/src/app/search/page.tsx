@@ -27,12 +27,17 @@ export default function Search() {
     const [loading, setLoading] = useState<boolean>(true)
     const searchParams = useSearchParams()
     const search = searchParams ? searchParams.get('q') : null
+    const [page, setPage] = useState(1);
+    const [totalResults, setTotalResults] = useState(0);
 
     useEffect(() => {
         const getNews = async () => {
             try {
-                const data = await searchNews(search || "")
+                const data = await searchNews(search || "", page);
                 setArticles(data.articles)
+                setTotalResults(data.totalResults || 0);
+
+                window.scrollTo({ top: 0, behavior: "smooth" });
             } catch (error) {
                 if (typeof error === 'object' && error !== null) {
                     console.log(error.toString());
@@ -44,7 +49,9 @@ export default function Search() {
             }
         }
         getNews()
-    }, [search])
+    }, [search, page])
+
+    const totalPages = Math.ceil(totalResults / 10);
 
     if (loading) {
         return (
@@ -56,11 +63,34 @@ export default function Search() {
 
     return (
         <div className='w-[700px] mx-7'>
-            {articles.map((article, index) => (
-                <div key={index}>
-                    <Article data={article} />
+            <h2 className="text-2xl font-bold">Search Results for: {search}</h2>
+            <div>
+                {articles.map((article, index) => (
+                    <div key={index}>
+                        <Article data={article} />
+                    </div>
+                ))}
+            </div>
+
+            {totalPages > 1 && (
+                <div className="flex justify-center my-4 space-x-4">
+                    <button
+                        onClick={() => setPage(prev => Math.max(prev - 1, 1))}
+                        disabled={page === 1}
+                        className={`px-4 py-2 border rounded ${page === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-300"}`}
+                    >
+                        Previous
+                    </button>
+                    <span className="px-4 py-2">Page {page} of {totalPages}</span>
+                    <button
+                        onClick={() => setPage(prev => prev + 1)}
+                        disabled={page >= totalPages}
+                        className={`px-4 py-2 border rounded ${page >= totalPages ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-300"}`}
+                    >
+                        Next
+                    </button>
                 </div>
-            ))}
+            )}
         </div>
     )
 }
