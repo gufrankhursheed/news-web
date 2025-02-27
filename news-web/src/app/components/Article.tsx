@@ -7,18 +7,18 @@ interface Source {
     name: string
 }
 
-interface Article {
+interface ArticleData {
     source: Source;
     author: string;
     title: string;
     description: string;
     url: string;
-    urlToImage: string;
+    urlToImage: string | null;
     publishedAt: string;
     content: string
 }
 
-export default function Article({ data }: { data: Article }) {
+export default function Article({ data }: { data: ArticleData }) {
     return (
         <div className="my-5 py-2 border-b border-gray-300">
             <div className="my-2 relative w-full h-[350px]">
