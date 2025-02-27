@@ -20,7 +20,7 @@ interface Article {
 
 export default function RandomArticle({ data }: { data: Article }) {
     return (
-        <div className='flex justify-between gap-2 p-2 mb-4 border-b border-gray-300'>
+        <div className='flex justify-between gap-2 p-2 px-4 mb-4 border-b border-gray-300'>
             <div>
                 <Link href={data?.url} className="font-bold text-lg hover:text-gray-700 hover:underline">{data?.title}</Link>
                 <div className='flex flex-col space-y-2 max-w-max my-2'>

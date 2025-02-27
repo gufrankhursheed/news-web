@@ -16,11 +16,12 @@ export default function SearchInput() {
         else {
             router.push(`/search?q=${keywords}`)
         }
+        setKeywords("")
     }
 
     return (
-        <form className='flex space-x-2 items-center mr-7' onSubmit={searchKeywords}>
-            <input type="text" placeholder='e.g. sports, lifestyle' className='px-3 py-2 rounded-md outline-none border border-[#0e0e0e] text-sm' onChange={(e) => setKeywords(e.target.value)} />
+        <form className='flex space-x-2 items-center mr-9' onSubmit={searchKeywords}>
+            <input type="text" value={keywords} placeholder='e.g. sports, lifestyle' className='px-3 py-2 rounded-md outline-none border border-[#0e0e0e] text-sm' onChange={(e) => setKeywords(e.target.value)} />
             <button type="submit">
                 <BiSearch className="text-black text-xl" />
             </button>
